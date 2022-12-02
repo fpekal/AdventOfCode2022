@@ -14,6 +14,9 @@ const std::unordered_map<char, rps> opponent_moves {{'A', rock}, {'B', paper}, {
 const std::unordered_map<char, rps> player_moves {{'X', rock}, {'Y', paper}, {'Z', scissors}};
 const std::unordered_map<char, state> states {{'X', lose}, {'Y', draw}, {'Z', win}};
 
+const std::unordered_map<state, int> state_score {{win, 6}, {draw, 3}, {lose, 0}};
+const std::unordered_map<rps, int> shape_score {{rock, 1}, {paper, 2}, {scissors, 3}};
+
 state first_state(rps first, rps second) {
     if (first == rock) {
         if (second == rock) return draw;
@@ -32,18 +35,6 @@ state first_state(rps first, rps second) {
     }
 
     return draw;
-}
-
-int shape_score(rps shape) {
-    if (shape == rock) return 1;
-    else if (shape == paper) return 2;
-    else return 3;
-}
-
-int state_score(state _state) {
-    if (_state == win) return 6;
-    else if (_state == draw) return 3;
-    else return 0;
 }
 
 rps examine_shape(rps opponent, state desired_state) {
@@ -83,8 +74,8 @@ int main() {
             rps opponent_shape = opponent_moves.at(opponent_char);
             state ending_state = first_state(player_shape, opponent_shape);
 
-            score += shape_score(player_shape);
-            score += state_score(ending_state);
+            score += shape_score.at(player_shape);
+            score += state_score.at(ending_state);
         }
     }
     else if (part == 2) {
@@ -96,8 +87,8 @@ int main() {
             rps opponent_shape = opponent_moves.at(opponent_char);
             rps player_shape = examine_shape(opponent_shape, desired_state);
 
-            score += shape_score(player_shape);
-            score += state_score(desired_state);
+            score += shape_score.at(player_shape);
+            score += state_score.at(desired_state);
         }
     }
 
