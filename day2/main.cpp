@@ -11,6 +11,7 @@ enum state {
 };
 
 const std::unordered_map<char, rps> opponent_moves {{'A', rock}, {'B', paper}, {'C', scissors}};
+const std::unordered_map<char, rps> player_moves {{'X', rock}, {'Y', paper}, {'Z', scissors}};
 const std::unordered_map<char, state> states {{'X', lose}, {'Y', draw}, {'Z', win}};
 
 state first_state(rps first, rps second) {
@@ -70,17 +71,35 @@ int main() {
 
     long long score = 0;
 
-    while (file.peek() != EOF) {
-        char opponent_char, desired_state_char;
-        file >> opponent_char >> desired_state_char;
+    int part;
+    std::cin >> part; // 1, 2
 
-        state desired_state = states.at(desired_state_char);
-        rps opponent_shape = opponent_moves.at(opponent_char);
-        rps player_shape = examine_shape(opponent_shape, desired_state);
+    if (part == 1) {
+        while (file.peek() != EOF) {
+            char opponent_char, player_char;
+            file >> opponent_char >> player_char;
 
-        score += shape_score(player_shape);
-        score += state_score(desired_state);
+            rps player_shape = player_moves.at(player_char);
+            rps opponent_shape = opponent_moves.at(opponent_char);
+            state ending_state = first_state(player_shape, opponent_shape);
+
+            score += shape_score(player_shape);
+            score += state_score(ending_state);
+        }
+    }
+    else if (part == 2) {
+        while (file.peek() != EOF) {
+            char opponent_char, desired_state_char;
+            file >> opponent_char >> desired_state_char;
+
+            state desired_state = states.at(desired_state_char);
+            rps opponent_shape = opponent_moves.at(opponent_char);
+            rps player_shape = examine_shape(opponent_shape, desired_state);
+
+            score += shape_score(player_shape);
+            score += state_score(desired_state);
+        }
     }
 
-    std::cout << score;
+    std::cout << score << '\n';
 }
