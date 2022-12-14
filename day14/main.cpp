@@ -3,8 +3,6 @@
 #include <array>
 #include <vector>
 #include <charconv>
-#include <optional>
-#include <thread>
 
 struct coords_t {
     int x = -1;
@@ -184,6 +182,4 @@ int main() {
             }
         }
     }
-
-    //std::cout << '\n';
 }
