@@ -146,9 +146,9 @@ int main() {
             }
         }
 
-        // At this point `found_sensors` has 4 beacons
+        // At this point `found_sensors` has 4 sensors
 
-        // Position somewhere in between of these 4 beacons
+        // Position somewhere in between of these 4 sensors
         coords_t position = {(found_sensors[0].sensor_pos.x + found_sensors[1].sensor_pos.x)/2, (found_sensors[0].sensor_pos.y + found_sensors[1].sensor_pos.y)/2};
 
         while (true) {
